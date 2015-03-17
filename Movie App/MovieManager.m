@@ -57,11 +57,14 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
 
         NSString *string = [NSString stringWithFormat:@"%@/discover/movie?sort_by=popularity.desc&api_key=%@", BASE_API_URL, self.apiKey];
+        // uncomment this to read simple statis JSON file
+//        string = @"https://raw.githubusercontent.com/dmi3j/movie-app-themoviedb-prototype/master/movie-request-example.json";
         NSURL *url = [NSURL URLWithString:string];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         AFHTTPRequestOperation *moviesListFetchOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
         moviesListFetchOperation.responseSerializer = [AFJSONResponseSerializer serializer];
-
+        // uncomment this to read simple statis JSON file
+//        moviesListFetchOperation.responseSerializer.acceptableContentTypes = nil;
         [moviesListFetchOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
